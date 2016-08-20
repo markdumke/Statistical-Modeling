@@ -1,16 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Aug 20 08:45:50 2016
+Gradient Descent for linear regression
 
-@author: M
 """
-
 import numpy as np
 
-# Gradient Descent for linear regression
-
 # generate some data
-
 np.random.seed(200816)
 x = np.random.random(20)
 def true_function(x):
@@ -21,7 +16,6 @@ from matplotlib import pyplot as plt
 plt.plot(x, y, "ro")
 
 # using gradient descent to find estimates for linear regression coefficients
-
 n = len(x)
 beta = [0, 0] # initialisation
 epsilon = 1 # learning rate
@@ -34,7 +28,7 @@ def Grad_1(beta_0, beta_1):
     return(1 / n * (- sum(y * x) + beta[0] * sum(x) + beta[1] * sum(x**2)))
 
 beta = np.zeros((100, 2))
-for i in range(1, 100):      
+for i in range(1, 100):
     beta[i, 0] = beta[i - 1, 0] - epsilon * Grad_0(beta[i - 1, 0], beta[i - 1, 1])
     beta[i, 1] = beta[i - 1, 1] - epsilon * Grad_1(beta[i - 1, 0], beta[i - 1, 1])
 
@@ -43,8 +37,8 @@ for i in range(1, 100):
 X = np.vstack([np.ones_like(x), x]).T
 beta_direct = np.dot(np.dot(np.linalg.inv(np.dot(X.T, X)), X.T) , y)
 
-beta
-beta_direct
+print(beta)
+print(beta_direct)
 
 # plot data generating process and estimated regression line
 x_true = np.linspace(0, 1, 50)
