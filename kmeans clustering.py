@@ -20,6 +20,7 @@ x = np.column_stack([x, x_label]) # 3.column for class assignment
 
 from matplotlib import pyplot as plt
 plt.plot(x[:,0], x[:,1], "ro")
+plt.show()
 
 #---------------------
 # k means clustering
@@ -50,5 +51,9 @@ for i in range(iter):
     cl_1 = points_cl1.mean(axis = 1).T
     
 
-plt.plot(cl_0[0], cl_0[1], "b<")
-plt.plot(cl_1[0], cl_1[1], "g<")
+# Plotting clusters
+fig = plt.figure()
+scatter = plt.scatter(x[:, 0], x[:, 1], c = x[:, 2], s = 100, alpha=0.5, cmap ='gray')
+plt.plot(cl_0[0], cl_0[1], "rx", markersize = 20, markeredgewidth = 2)
+plt.plot(cl_1[0], cl_1[1], "rx", markersize = 20, markeredgewidth = 2)
+fig.show()
