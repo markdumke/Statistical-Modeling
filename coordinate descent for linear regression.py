@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Gradient Descent for linear regression
+Coordinate Descent for linear regression
 
 """
 import numpy as np
+import scipy as sp
+from scipy import optimize
 
 # generate some data
 np.random.seed(200816)
@@ -15,23 +17,19 @@ y = true_function(x) + np.random.normal(0, 0.5, len(x))
 from matplotlib import pyplot as plt
 plt.plot(x, y, "ro")
 
-# using gradient descent to find estimates for linear regression coefficients
+# using coordinate descent to find estimates for linear regression coefficients
 n = len(x)
 beta = [0, 0] # initialisation
-epsilon = 1 # learning rate
-
-# defining the gradients
-def Grad_0(beta_0, beta_1):
-    return(1 / n * (- sum(y) + n * beta_0 + beta_1 * sum(x)))
-
-def Grad_1(beta_0, beta_1):
-    return(1 / n * (- sum(y * x) + beta_0 * sum(x) + beta_1 * sum(x**2)))
 
 iter = 100 # number of iterations
 beta = np.zeros((iter, 2))
+
+def loss(beta_0, beta_1):
+    return(((beta_0 + x * beta_1 - y)**2).mean())
+
 for i in range(1, 100):
-    beta[i, 0] = beta[i - 1, 0] - epsilon * Grad_0(beta[i - 1, 0], beta[i - 1, 1])
-    beta[i, 1] = beta[i - 1, 1] - epsilon * Grad_1(beta[i - 1, 0], beta[i - 1, 1])
+    beta[i, 0] = sp.optimize.minimize_scalar(loss(beta[i, 0], beta[i - 1, 1]))
+    beta[i, 1] = sp.optimize.minimize_scalar(loss(beta[i, 0], beta[i, 1]))
 
 # calculate solution for beta directly using normal equation
 # design matrix X with one-column for bias beta[0]
@@ -65,12 +63,12 @@ plt.ylabel("Loss")
 plt.xlabel("beta_1")
 plt.show()
 
-def loss(beta_0, beta_1):
-    return(((beta_0 + x * beta_1 - y)**2).mean())
+#def loss(beta_0, beta_1):
+#    return(((beta_0 + x * beta_1 - y)**2).mean())
 
-delta = 0.25
-a = np.arange(-3.0, 3.0, delta)
-b = np.arange(-2.0, 2.0, delta)
-X, Y = np.meshgrid(a, b)
-Z = loss(X, Y)
+#delta = 0.25
+#a = np.arange(-3.0, 3.0, delta)
+#b = np.arange(-2.0, 2.0, delta)
+#X, Y = np.meshgrid(a, b)
+#Z = loss(X, Y)
 #plt.contour(X,Y,Z)
