@@ -65,12 +65,12 @@ plt.ylabel("Loss")
 plt.xlabel("beta_1")
 plt.show()
 
-def loss(beta_0, beta_1):
-    return(((beta_0 + x * beta_1 - y)**2).mean())
+#def loss(beta_0, beta_1):
+#    return(((beta_0 + x * beta_1 - y)**2).mean())
 
-delta = 0.25
-a = np.arange(-3.0, 3.0, delta)
-b = np.arange(-2.0, 2.0, delta)
-X, Y = np.meshgrid(a, b)
-Z = loss(X, Y)
+#delta = 0.25
+#a = np.arange(-3.0, 3.0, delta)
+#b = np.arange(-2.0, 2.0, delta)
+#X, Y = np.meshgrid(a, b)
+#Z = loss(X, Y)
 #plt.contour(X,Y,Z)
