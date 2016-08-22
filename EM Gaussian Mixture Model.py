@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 from scipy.stats import multivariate_normal
+from matplotlib import pyplot as plt
 '''
 EM Algorithm for Gaussian Mixture Model
 
@@ -23,10 +24,9 @@ cl_1 = np.random.multivariate_normal(mu_1_true, Sigma_1_true, n1)
 
 x = np.vstack((cl_0, cl_1))
 
-from matplotlib import pyplot as plt
 #plt.plot(x[:, 0], x[:, 1], "ro")
 plt.plot(x[0:n0, 0], x[0:n0, 1], "bo")
-plt.plot(x[n0:(n0 + n1), 0], x[n0:(n0 + n1), 1], "go")
+plt.plot(x[n0:(n0 + n1), 0], x[n0:(n0 + n1), 1], "ro")
 
 # Initialise parameter for each cluster k, we choose K = 2 here
 K = 2
@@ -69,32 +69,143 @@ def em(iter):
 em_1 = em(1)
 mu_1 = em_1[1]
 plt.plot(mu_1[0, 0][0], mu_1[0, 0][1], "bx", markersize = 20, markeredgewidth = 2)
-plt.plot(mu_1[1, 0][0], mu_1[1, 0][1], "gx", markersize = 20, markeredgewidth = 2)
+plt.plot(mu_1[1, 0][0], mu_1[1, 0][1], "rx", markersize = 20, markeredgewidth = 2)
+xi = np.linspace(- 8, 2, 50)
+yi = np.linspace(-2, 6, 50)
+a, b = np.meshgrid(xi, yi)
+a_flat = a.flatten()
+b_flat = b.flatten()
+space = np.vstack((a_flat, b_flat)).T
+zi = multivariate_normal.pdf(space, mean = mu_1[0][0], cov = em_1[2][0][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.contour(a, b, z, colors = 'blue', linestyles = 'dashed')
+
+zi = multivariate_normal.pdf(space, mean = mu_1[1][0], cov = em_1[2][1][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.plot(x[0:n0, 0], x[0:n0, 1], "bo")
+plt.plot(x[n0:(n0 + n1), 0], x[n0:(n0 + n1), 1], "ro")
+plt.contour(a, b, z, colors = 'red', linestyles = 'dashed')
+plt.title("EM Algorithm for Gaussian Mixture Model: iter = 1")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.show()
 
 em_2 = em(2)
 mu_2 = em_2[1]
 plt.plot(mu_2[0, 0][0], mu_2[0, 0][1], "bx", markersize = 20, markeredgewidth = 2)
-plt.plot(mu_2[1, 0][0], mu_2[1, 0][1], "gx", markersize = 20, markeredgewidth = 2)
+plt.plot(mu_2[1, 0][0], mu_2[1, 0][1], "rx", markersize = 20, markeredgewidth = 2)
+xi = np.linspace(- 8, 2, 50)
+yi = np.linspace(-2, 6, 50)
+a, b = np.meshgrid(xi, yi)
+a_flat = a.flatten()
+b_flat = b.flatten()
+space = np.vstack((a_flat, b_flat)).T
+zi = multivariate_normal.pdf(space, mean = mu_2[0][0], cov = em_2[2][0][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.contour(a, b, z, colors = 'blue', linestyles = 'dashed')
+
+zi = multivariate_normal.pdf(space, mean = mu_2[1][0], cov = em_2[2][1][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.plot(x[0:n0, 0], x[0:n0, 1], "bo")
+plt.plot(x[n0:(n0 + n1), 0], x[n0:(n0 + n1), 1], "ro")
+plt.contour(a, b, z, colors = 'red', linestyles = 'dashed')
+plt.title("EM Algorithm for Gaussian Mixture Model: iter = 2")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.show()
 
 em_3 = em(3)
 mu_3 = em_3[1]
 plt.plot(mu_3[0, 0][0], mu_3[0, 0][1], "bx", markersize = 20, markeredgewidth = 2)
-plt.plot(mu_3[1, 0][0], mu_3[1, 0][1], "gx", markersize = 20, markeredgewidth = 2)
+plt.plot(mu_3[1, 0][0], mu_3[1, 0][1], "rx", markersize = 20, markeredgewidth = 2)
+xi = np.linspace(- 8, 2, 50)
+yi = np.linspace(-2, 6, 50)
+a, b = np.meshgrid(xi, yi)
+a_flat = a.flatten()
+b_flat = b.flatten()
+space = np.vstack((a_flat, b_flat)).T
+zi = multivariate_normal.pdf(space, mean = mu_3[0][0], cov = em_3[2][0][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.contour(a, b, z, colors = 'blue', linestyles = 'dashed')
+
+zi = multivariate_normal.pdf(space, mean = mu_3[1][0], cov = em_3[2][1][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.plot(x[0:n0, 0], x[0:n0, 1], "bo")
+plt.plot(x[n0:(n0 + n1), 0], x[n0:(n0 + n1), 1], "ro")
+plt.contour(a, b, z, colors = 'red', linestyles = 'dashed')
+plt.title("EM Algorithm for Gaussian Mixture Model: iter = 3")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.show()
+
+em_4 = em(4)
+mu_4 = em_4[1]
+plt.plot(mu_4[0, 0][0], mu_4[0, 0][1], "bx", markersize = 20, markeredgewidth = 2)
+plt.plot(mu_4[1, 0][0], mu_4[1, 0][1], "rx", markersize = 20, markeredgewidth = 2)
+xi = np.linspace(- 8, 2, 50)
+yi = np.linspace(-2, 6, 50)
+a, b = np.meshgrid(xi, yi)
+a_flat = a.flatten()
+b_flat = b.flatten()
+space = np.vstack((a_flat, b_flat)).T
+zi = multivariate_normal.pdf(space, mean = mu_4[0][0], cov = em_4[2][0][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.contour(a, b, z, colors = 'blue', linestyles = 'dashed')
+
+zi = multivariate_normal.pdf(space, mean = mu_4[1][0], cov = em_4[2][1][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.plot(x[0:n0, 0], x[0:n0, 1], "bo")
+plt.plot(x[n0:(n0 + n1), 0], x[n0:(n0 + n1), 1], "ro")
+plt.contour(a, b, z, colors = 'red', linestyles = 'dashed')
+plt.title("EM Algorithm for Gaussian Mixture Model: iter = 4")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.show()
 
 em_5 = em(5)
 mu_5 = em_5[1]
 plt.plot(mu_5[0, 0][0], mu_5[0, 0][1], "bx", markersize = 20, markeredgewidth = 2)
-plt.plot(mu_5[1, 0][0], mu_5[1, 0][1], "gx", markersize = 20, markeredgewidth = 2)
+plt.plot(mu_5[1, 0][0], mu_5[1, 0][1], "rx", markersize = 20, markeredgewidth = 2)
+xi = np.linspace(- 8, 2, 50)
+yi = np.linspace(-2, 6, 50)
+a, b = np.meshgrid(xi, yi)
+a_flat = a.flatten()
+b_flat = b.flatten()
+space = np.vstack((a_flat, b_flat)).T
+zi = multivariate_normal.pdf(space, mean = mu_5[0][0], cov = em_5[2][0][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.contour(a, b, z, colors = 'blue', linestyles = 'dashed')
+
+zi = multivariate_normal.pdf(space, mean = mu_5[1][0], cov = em_5[2][1][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.plot(x[0:n0, 0], x[0:n0, 1], "bo")
+plt.plot(x[n0:(n0 + n1), 0], x[n0:(n0 + n1), 1], "ro")
+plt.contour(a, b, z, colors = 'red', linestyles = 'dashed')
+plt.title("EM Algorithm for Gaussian Mixture Model: iter = 5")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.show()
 
 em_10 = em(10)
 mu_10 = em_10[1]
 plt.plot(mu_10[0, 0][0], mu_10[0, 0][1], "bx", markersize = 20, markeredgewidth = 2)
-plt.plot(mu_10[1, 0][0], mu_10[1, 0][1], "gx", markersize = 20, markeredgewidth = 2)
+plt.plot(mu_10[1, 0][0], mu_10[1, 0][1], "rx", markersize = 20, markeredgewidth = 2)
+xi = np.linspace(- 8, 2, 50)
+yi = np.linspace(-2, 6, 50)
+a, b = np.meshgrid(xi, yi)
+a_flat = a.flatten()
+b_flat = b.flatten()
+space = np.vstack((a_flat, b_flat)).T
+zi = multivariate_normal.pdf(space, mean = mu_10[0][0], cov = em_10[2][0][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.contour(a, b, z, colors = 'blue', linestyles = 'dashed')
 
-em_100 = em(100)
-mu_100 = em_100[1]
-plt.plot(mu_100[0, 0][0], mu_100[0, 0][1], "bx", markersize = 20, markeredgewidth = 2)
-plt.plot(mu_100[1, 0][0], mu_100[1, 0][1], "gx", markersize = 20, markeredgewidth = 2)
-plt.title("EM Algorithm for Gaussian Mixture Model")
+zi = multivariate_normal.pdf(space, mean = mu_10[1][0], cov = em_10[2][1][0])
+z = np.reshape(zi, newshape = a.shape)
+plt.plot(x[0:n0, 0], x[0:n0, 1], "bo")
+plt.plot(x[n0:(n0 + n1), 0], x[n0:(n0 + n1), 1], "ro")
+plt.contour(a, b, z, colors = 'red', linestyles = 'dashed')
+plt.title("EM Algorithm for Gaussian Mixture Model: iter = 10")
 plt.xlabel("x")
 plt.ylabel("y")
+plt.show()
