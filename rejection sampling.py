@@ -50,4 +50,4 @@ plt.plot(x_space, 1 / gamma * uniform.pdf(x_space), 'b-', lw = 3, alpha = 0.6,
 plt.title("Rejection Sampling for Beta(2, 2)")
 plt.legend(loc = 10)
 plt.show()
-plt.hist(x)
+plt.hist(x, bins = 20)
