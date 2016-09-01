@@ -2,10 +2,8 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import AdaBoostClassifier
-import matplotlib.pyplot as plt
 
-# Classification with AdaBoost
+# Binary classification with AdaBoost
 
 # sample some data from two normal distributions
 np.random.seed(28082016)
