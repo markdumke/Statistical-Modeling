@@ -56,12 +56,6 @@ def ada_boost(x, features, target, mstop):
 # Test
 ada_boost(X[:, 0:2], features = X[:, 0:2], target = X[:, 2], mstop = 30)
 
-## Compare with build-in sklearn.ensemble.AdaBoostClassifier
-#clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth = 1), 
-#                         algorithm = "SAMME", n_estimators = 30)
-#clf.fit(X[:, 0:2], y = X[:, 2])
-#clf.predict(X[:, 0:2])
-
 ###################################
 # Visualisation: Plot decision boundaries and points
 x0_min, x0_max = np.min(x0) - 1, np.max(x0) + 1
