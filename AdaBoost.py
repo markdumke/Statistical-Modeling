@@ -30,25 +30,25 @@ def ada_boost(x, features, target, mstop):
     prediction = np.zeros((mstop, len(x)))
 
     for m in range(mstop):
-# Fit base learner g_m (here: tree) to weighted training data w_i * x_i   
+        # Fit base learner (here: tree) to weighted training data w * x  
         clf[m] = clf[m].fit(features, target, sample_weight = w)
 
-# Calculate weighted misclassification rate err_m
+        # Calculate weighted misclassification rate
         misclassifed = target != clf[m].predict(features)
         err[m] = sum(w * misclassifed)
-# Alternative: err = 1 - clf.score(features, target, sample_weight = w)
+        # Alternative: err = 1 - clf.score(features, target, sample_weight = w)
 
-# Compute weight alpha_m of base learner
+        # Compute weight of base learner
         alpha[m] = 1 / 2 * np.log((1 - err[m]) / err[m])
 
-# Compute new weights w_i and normalize sum to 1
+        # Compute new weights and normalize sum to 1
         w = w * np.exp(alpha[m] * misclassifed)
         w = w / sum(w)
 
-# Predict x with model m
+        # Predict new x with model m
         prediction[m] = clf[m].predict(x).astype(np.float)
 
-# Output: sign(sum(alpha_m * clf_m))
+    # Output: weighted predictions of all base learners
     return(np.sign(np.sum(prediction.T * alpha, axis = 1)))
 
 # Test
