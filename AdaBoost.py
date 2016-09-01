@@ -63,15 +63,11 @@ ada_boost(X[:, 0:2], features = X[:, 0:2], target = X[:, 2], mstop = 30)
 #clf.predict(X[:, 0:2])
 
 ###################################
-# Visualisation: Plot decision boundaries
-plot_step = 0.02
-class_names = "AB"
-
-# Plot the decision boundaries
+# Visualisation: Plot decision boundaries and points
 x0_min, x0_max = np.min(x0) - 1, np.max(x0) + 1
 x1_min, x1_max = np.min(x1) - 1, np.max(x1) + 1
-xx0, xx1 = np.meshgrid(np.arange(x0_min, x0_max, plot_step),
-                     np.arange(x1_min, x1_max, plot_step))
+xx0, xx1 = np.meshgrid(np.arange(x0_min, x0_max, 0.02),
+                     np.arange(x1_min, x1_max, 0.02))
 
 Z = ada_boost(np.c_[xx0.ravel(), xx1.ravel()], features = X[:, 0:2],
               target = X[:, 2], mstop = 500)
