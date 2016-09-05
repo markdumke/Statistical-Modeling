@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from scipy.stats import beta
-from scipy.stats import uniform
+from scipy.stats import beta, uniform
 import matplotlib.pyplot as plt
 # Rejection Sampling
 
