@@ -40,21 +40,18 @@ def naive_bayes_predict(x, theta, p, prob = False):
 # Example
 N = 100
 n_features = 5
-y = bernoulli.rvs(0.5, size = (N))
+y = bernoulli.rvs(0.5, size = N)
 x_train = bernoulli.rvs(0.6, size = (N, n_features))
 x_test = bernoulli.rvs(0.5, size = (20, n_features))
 
 theta, p = naive_bayes_train(x_train, y)
 naive_bayes_predict(x_test, theta, p)
-naive_bayes_predict(x_test, theta, p, prob = True)
+proba = naive_bayes_predict(x_test, theta, p, prob = True)
 
 # Comparison with sklearn implementation of Naive Bayes
 from sklearn.naive_bayes import BernoulliNB
 clf = BernoulliNB(alpha = 0)
 clf.fit(x_train, y)
 clf.predict(x_test)
-clf.predict_proba(x_test)
 
-
-
-
+np.max(clf.predict_proba(x_test) - proba)
